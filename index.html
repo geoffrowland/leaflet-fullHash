@@ -13,7 +13,7 @@
   crossorigin=""></script>
 <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
 <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
-<script src='VeloParkings.js'></script>
+<script src='Site.js'></script>
 <script src='leaflet-fullHash.js'></script>
 
 <style>
@@ -29,12 +29,12 @@
 <script>
 
 var markerOptions = {
-	radius: 3,
+	radius: 5,
 	fillColor: '#0099FF',
 	color: "#fff",
 	weight: 3,
-	opacity: 0.5,
-	fillOpacity: 0.5
+	opacity: 1.0,
+	fillOpacity: 1.0
 };
 var google = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
 	    subdomains:['mt0','mt1','mt2','mt3'],
@@ -47,9 +47,10 @@ var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 	attrib = '&copy; Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> | <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 	osm = L.tileLayer(osmUrl),
 	toner = L.tileLayer(stamenUrl),
-	parkings = L.geoJson(veloParkingsData, {
+	site = L.geoJson(siteData, {
 		pointToLayer: function (feature, latlng) {
-			return L.circleMarker(latlng, markerOptions);
+//  		return L.circleMarker(latlng, markerOptions);
+           return L.marker(latlng);
 		}
 	}),
 	map = new L.Map('map', {
@@ -60,7 +61,7 @@ var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 
 var allMapLayers = { 'osm': osm,
 					  'google': google, 
-					  'parkings': parkings
+					  'site': site
 					};
 
 L.hash(map, allMapLayers);
@@ -69,7 +70,7 @@ L.control.layers({
     'OSM Map': osm,
     'Satellite': google
 }, {
-    'Bike Parkings': parkings
+    'Sites': site
 	}
 ).addTo(map);
 map.addControl(new L.Control.Fullscreen());
