@@ -36,17 +36,110 @@ var markerOptions = {
 	opacity: 1.0,
 	fillOpacity: 1.0
 };
+var blank = L.tileLayer('');
+
 var google = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
 	    subdomains:['mt0','mt1','mt2','mt3'],
             attribution: 'Imagery &copy; 2021 Google, Map data &copy; 2021 <a target="_blank" href="https://www.google.com/intl/en_uk/help/terms_maps/">Terms</a>',
             maxNativeZoom: 18,
 	    maxZoom: 22
 });
+var dorset = L.tileLayer('https://geo.nls.uk/mapdata2/os/25_inch/dorset/{z}/{x}/{y}.png', {
+		format: 'image/png',
+        transparent: true,
+        opacity: 0.5,
+        minZoom: 11,
+    	maxNativeZoom: 18,
+        bounds: L.latLngBounds([[50.51, -2.96],[51.09, -1.79]])	
+});
+var dorsetholes = L.tileLayer('https://geo.nls.uk/mapdata3/os/25_inch/holes_england/{z}/{x}/{y}.png', {
+		format: 'image/png',
+        transparent: true,
+        opacity: 0.5,
+        minZoom: 11,
+	    maxNativeZoom: 18
+       // bounds: L.latLngBounds([[50.51, -2.96],[51.09, -1.79]])
+});
+var dor1900 = L.layerGroup([dorset, dorsetholes],{
+		attribution: 'Historic OS maps © <a target = "_blank" href="https://maps.nls.uk/" title="National Library of Scotland">NLS</a>'
+});
+var dorset1 = L.tileLayer('https://geoffrowland.github.io/OS-First-Dorset-1/{z}/{x}/{y}.png', {
+		tms: true,
+		opacity: 0.5,
+		attribution: "© Crown Copyright and Landmark Information Group Limited 2020. All rights reserved. 1860-88",
+		minZoom: 11,
+		maxNativeZoom: 18,
+		bounds: L.latLngBounds([[50.667743, -3.142090],[50.975724, -2.988281]])
+});
+var dorset2 = L.tileLayer('https://geoffrowland.github.io/OS-First-Dorset-2/{z}/{x}/{y}.png', {
+		tms: true,
+		opacity: 0.5,
+		attribution: "© Crown Copyright and Landmark Information Group Limited 2020. All rights reserved. 1860-88",
+		minZoom: 11,
+		maxNativeZoom: 18,
+		bounds: L.latLngBounds([[50.669484, -2.988281],[50.976588, -2.812500]])
+});
+var dorset3 = L.tileLayer('https://geoffrowland.github.io/OS-First-Dorset-3/{z}/{x}/{y}.png', {
+		tms: true,
+		opacity: 0.5,
+		attribution: "© Crown Copyright and Landmark Information Group Limited 2020. All rights reserved. 1860-88",
+		minZoom: 11,
+		maxNativeZoom: 18,
+	    bounds: L.latLngBounds([[50.617232, -2.812500],[51.023258, -2.636719]])
+});
+var dorset4 = L.tileLayer('https://geoffrowland.github.io/OS-First-Dorset-4/{z}/{x}/{y}.png', {
+		tms: true,
+		opacity: 0.5,
+		attribution: "© Crown Copyright and Landmark Information Group Limited 2020. All rights reserved. 1860-88",
+		minZoom: 11,
+		maxNativeZoom: 18,
+		bounds: L.latLngBounds([[50.501199, -2.636719],[51.113869, -2.460938]])
+});
+var dorset5 = L.tileLayer('https://geoffrowland.github.io/OS-First-Dorset-5/{z}/{x}/{y}.png', {
+		tms: true,
+		opacity: 0.5,
+		attribution: "© Crown Copyright and Landmark Information Group Limited 2020. All rights reserved. 1860-88",
+		minZoom: 11,
+		maxNativeZoom: 18,
+		bounds: L.latLngBounds([[50.501199, -2.460938],[51.117731, -2.285156]])
+});
+var dorset6 = L.tileLayer('https://geoffrowland.github.io/OS-First-Dorset-6/{z}/{x}/{y}.png', {
+		tms: true,
+		opacity: 0.5,
+		attribution: "© Crown Copyright and Landmark Information Group Limited 2020. All rights reserved. 1860-88",
+		minZoom: 11,
+		maxNativeZoom: 18,
+		bounds: L.latLngBounds([[50.574516, -2.285156],[51.114731, -2.109735]])
+});
+var dorset7 = L.tileLayer('https://geoffrowland.github.io/OS-First-Dorset-7/{z}/{x}/{y}.png', {
+		tms: true,
+		opacity: 0.5,
+		attribution: "© Crown Copyright and Landmark Information Group Limited 2020. All rights reserved. 1860-88",
+		minZoom: 1,
+		maxNativeZoom: 18,
+		bounds: L.latLngBounds([[50.574516, -2.109375],[51.114731, -1.933594]])
+});
+var dorset8 = L.tileLayer('https://geoffrowland.github.io/OS-First-Dorset-8/{z}/{x}/{y}.png', {
+		tms: true,
+		opacity: 0.5,
+		attribution: "© Crown Copyright and Landmark Information Group Limited 2020. All rights reserved. 1860-88",
+		minZoom: 11,
+		maxNativeZoom: 18,
+		bounds: L.latLngBounds([[50.583237, -1.933594],[51.114731, -1.757613]])
+});
+var dorset9 = L.tileLayer('https://geoffrowland.github.io/OS-First-Dorset-9/{z}/{x}/{y}.png', {
+		tms: true,
+		opacity: 0.5,
+		attribution: "© Crown Copyright and Landmark Information Group Limited 2020. All rights reserved. 1860-88",
+		minZoom: 11,
+		maxNativeZoom: 18,
+		bounds: L.latLngBounds([[50.699937, -1.757813],[51.114731, -1.715240]])
+});
+var dor1880 = L.layerGroup([dorset1, dorset2, dorset3, dorset4, dorset5, dorset6, dorset7, dorset8, dorset9],{
+		attribution: '© Crown Copyright and Landmark Information Group Limited 2020. All rights reserved. 1860-88'
+});
 var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-	stamenUrl = 'http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png',
-	attrib = '&copy; Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> | <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 	osm = L.tileLayer(osmUrl),
-	toner = L.tileLayer(stamenUrl),
 	site = L.geoJson(siteData, {
 		pointToLayer: function (feature, latlng) {
 //  		return L.circleMarker(latlng, markerOptions);
@@ -59,17 +152,24 @@ var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 		layers: [osm]
 	});
 
-var allMapLayers = { 'osm': osm,
+var allMapLayers = {
+	                  'blank': blank,
+	                  'osm': osm,
 					  'google': google, 
-					  'site': site
+					  'site': site,
+					  'dor1880': dor1880,
+					  'dor1900': dor1900
 					};
 
 L.hash(map, allMapLayers);
 
 L.control.layers({
     'OSM Map': osm,
-    'Satellite': google
+    'Satellite': google,
+    'Blank': blank
 }, {
+	'Dorset 1880': dor1880,
+	'Dorset 1900': dor1900,
     'Sites': site
 	}
 ).addTo(map);
